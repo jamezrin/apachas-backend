@@ -1,0 +1,25 @@
+micronaut:
+  application:
+    name: apachasBackend
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/postgres`}
+    driverClassName: org.postgresql.Driver
+    username: ${JDBC_USERNAME:postgres}
+    password: ${JDBC_PASSWORD:apachasdev}
+    schema-generate: CREATE_DROP
+    dialect: POSTGRES
+netty:
+  default:
+    allocator:
+      max-order: 3
+jpa.default.properties.hibernate.hbm2ddl.auto: update
+

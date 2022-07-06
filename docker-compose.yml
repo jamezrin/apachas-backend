@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:14.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: apachasdev
+    ports:
+      - "5432:5432"
+  api:
+    build: .
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment:
+      JDBC_URL: "jdbc:postgresql://postgres:5432/postgres"
+      JDBC_USERNAME: postgres
+      JDBC_PASSWORD: apachasdev
+    ports:
+      - "8080:8080"
+    profiles: [include_api_service]
