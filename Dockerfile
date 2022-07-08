@@ -1,5 +1,5 @@
 FROM eclipse-temurin:11
 
-COPY ./target/apachas-backend*.jar app.jar
+COPY ./build/libs/apachas-backend*-all.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app.jar"]

@@ -22,7 +22,7 @@
 Every time you want to start the app, build it and bring the docker compose stack with the `include_api_service` profile
 
 ```bash
-mvn package && docker-compose --profile include_api_service up --build
+docker-compose --profile include_api_service up --build
 ```
 
 ### Run docker compose stack for development (only db, run app in IDE)
@@ -32,3 +32,7 @@ For better DX, only start the PostgreSQL service and start the app via the IDE
 ```bash
 docker-compose up
 ```
+
+## Notes
+
+- URL to Swagger http://localhost:8080/swagger/views/swagger-ui/

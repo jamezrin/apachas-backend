@@ -6,14 +6,14 @@ import io.swagger.v3.oas.annotations.info.*
 
 @OpenAPIDefinition(
     info = Info(
-        title = "apachas-backend",
-        version = "0.0"
+            title = "apachas-backend",
+            version = "0.0"
     )
 )
 object Api {
 }
 
 fun main(args: Array<String>) {
-    run(*args)
+	run(*args)
 }
 

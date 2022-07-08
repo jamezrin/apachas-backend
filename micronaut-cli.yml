@@ -2,5 +2,5 @@ applicationType: default
 defaultPackage: name.jamezrin.autentia.apachas
 testFramework: junit
 sourceLanguage: kotlin
-buildTool: maven
-features: [ annotation-api, app-name, data, data-jpa, github-workflow-docker-registry, hibernate-validator, http-client, jackson-databind, jdbc-hikari, junit, kotlin, kotlin-application, log4j2, maven, micronaut-aot, mockito, netty-server, openapi, postgres, readme, shade, swagger-ui, testcontainers, yaml ]
+buildTool: gradle_kotlin
+features: [annotation-api, app-name, data, data-jpa, gradle, hibernate-validator, http-client, jackson-databind, jdbc-hikari, junit, kotlin, kotlin-application, kotlin-build, log4j2, micronaut-build, netty-server, openapi, postgres, readme, shade, swagger-ui, testcontainers, yaml]
