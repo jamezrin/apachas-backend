@@ -3,10 +3,8 @@ package name.jamezrin.autentia.apachas.repository.impl
 import io.micronaut.transaction.annotation.ReadOnly
 import jakarta.inject.Singleton
 import name.jamezrin.autentia.apachas.domain.Group
-import name.jamezrin.autentia.apachas.domain.GroupMember
 import name.jamezrin.autentia.apachas.repository.GroupRepository
 import name.jamezrin.autentia.apachas.repository.generic.GenericCrudRepositoryImpl
-import org.hibernate.annotations.SortNatural
 import javax.persistence.NoResultException
 
 @Singleton

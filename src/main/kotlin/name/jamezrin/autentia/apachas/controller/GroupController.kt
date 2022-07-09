@@ -5,8 +5,8 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import jakarta.inject.Inject
-import name.jamezrin.autentia.apachas.domain.GroupExpense
 import name.jamezrin.autentia.apachas.domain.Group
+import name.jamezrin.autentia.apachas.domain.GroupExpense
 import name.jamezrin.autentia.apachas.domain.GroupMember
 import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
 import name.jamezrin.autentia.apachas.repository.GroupRepository
@@ -32,7 +32,8 @@ class GroupController {
 
     @Get(uri = "/{groupName}", produces = [MediaType.APPLICATION_JSON])
     fun getExistingGroup(@PathVariable groupName: String): Group {
-        return groupRepository.findByName(groupName) ?: throw GroupNotFoundException()
+        return groupRepository.findByName(groupName)
+            ?: throw GroupNotFoundException()
     }
 
     @Get(uri = "/example", produces = [MediaType.APPLICATION_JSON])

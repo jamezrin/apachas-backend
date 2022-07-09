@@ -22,7 +22,7 @@ class GroupMemberControllerTest {
     lateinit var client: HttpClient
 
     @Test
-    fun getNewGroupAndAddMemberSuccess() {
+    fun newGroupAndAddMemberSuccess() {
         val request1: HttpRequest<Unit> = HttpRequest.GET("/groups")
         val response1 = client.toBlocking().retrieve(request1, Group::class.java)
         assertNotNull(response1)
@@ -42,7 +42,7 @@ class GroupMemberControllerTest {
     }
 
     @Test
-    fun getNotExistingGroupAndAddMemberFailure() {
+    fun notExistingGroupAndAddMemberFailure() {
         val requestBody = CreateGroupMemberRequestBody(name = "Jaime Martínez Rincón")
         val request2: HttpRequest<CreateGroupMemberRequestBody> = HttpRequest.POST("/groups/not-existing-group/members", requestBody)
 
@@ -55,7 +55,7 @@ class GroupMemberControllerTest {
     }
 
     @Test
-    fun getNewGroupAndGetMembersSuccess() {
+    fun newGroupAndGetMembersSuccess() {
         val request1: HttpRequest<Unit> = HttpRequest.GET("/groups")
         val response1 = client.toBlocking().retrieve(request1, Group::class.java)
         assertNotNull(response1)
@@ -75,7 +75,7 @@ class GroupMemberControllerTest {
     }
 
     @Test
-    fun getNotExistingGroupMembers() {
+    fun notExistingGroupAndGetMembersFailure() {
         val request3: HttpRequest<Unit> = HttpRequest.GET("/groups/not-existing-group/members")
 
         val exception = assertThrows(HttpClientResponseException::class.java) {

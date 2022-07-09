@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 @Introspected
 data class CreateGroupExpenseRequestBody(
-    var amount: Double,
-    var description: String,
-    var expenseDate: LocalDateTime
+    val amount: Double,
+    val description: String,
+    val expenseDate: LocalDateTime
 )

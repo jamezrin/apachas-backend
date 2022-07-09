@@ -4,7 +4,6 @@ import io.micronaut.transaction.annotation.ReadOnly
 import jakarta.inject.Inject
 import javax.persistence.EntityManager
 import javax.transaction.Transactional
-import kotlin.reflect.typeOf
 
 open class GenericCrudRepositoryImpl<E, K>(
     private val clazz: Class<E>

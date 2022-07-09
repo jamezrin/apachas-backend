@@ -21,5 +21,28 @@ class GroupExpenseControllerTest {
     @field:Client("/api")
     lateinit var client: HttpClient
 
+    @Test
+    fun groupNonExistingGetMemberExpensesFailure() {
+        TODO()
+    }
 
+    @Test
+    fun nonExistingGroupGetOtherMemberExpensesFailure() {
+        TODO()
+    }
+
+    @Test
+    fun groupMemberGetNoExpensesSuccess() {
+        TODO()
+    }
+
+    @Test
+    fun groupMemberGetCreatedExpensesSuccess() {
+        TODO()
+    }
+
+    @Test
+    fun groupMemberAddAndGetExpensesSuccess() {
+        TODO()
+    }
 }

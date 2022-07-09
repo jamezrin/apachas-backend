@@ -8,10 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.persistence.*
 
 @Entity

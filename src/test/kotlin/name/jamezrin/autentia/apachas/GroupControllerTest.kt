@@ -2,7 +2,6 @@ package name.jamezrin.autentia.apachas
 
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
@@ -19,7 +18,7 @@ class GroupControllerTest {
     lateinit var client: HttpClient
 
     @Test
-    fun getNewGroupSuccess() {
+    fun newGroupSuccess() {
         val request: HttpRequest<Unit> = HttpRequest.GET("/groups")
         val response = client.toBlocking().retrieve(request, Group::class.java)
 
@@ -29,7 +28,7 @@ class GroupControllerTest {
     }
 
     @Test
-    fun getNewGroupAndFetchSuccess() {
+    fun newGroupAndFetchSuccess() {
         val request1: HttpRequest<Unit> = HttpRequest.GET("/groups")
         val response1 = client.toBlocking().retrieve(request1, Group::class.java)
         assertNotNull(response1)
@@ -42,7 +41,7 @@ class GroupControllerTest {
     }
 
     @Test
-    fun getNotExistingGroupFailure() {
+    fun notExistingGroupFailure() {
         val request1: HttpRequest<Unit> = HttpRequest.GET("/groups/some-not-existing-name")
 
         val exception = assertThrows(HttpClientResponseException::class.java) {

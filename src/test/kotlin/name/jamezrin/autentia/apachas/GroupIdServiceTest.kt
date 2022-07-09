@@ -12,7 +12,7 @@ class GroupIdServiceTest {
     lateinit var groupIdService: GroupIdService
 
     @RepeatedTest(200)
-    fun testGenerate() {
+    fun randomGenerateSuccess() {
         val randomId = groupIdService.generateNew()
         val failureMessage = "random id is $randomId";
 
