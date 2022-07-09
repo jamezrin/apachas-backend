@@ -46,7 +46,7 @@ class GroupController {
         val expense1 = GroupExpense(
             amount = 100.0,
             description = "Cena",
-            expenseDate = LocalDateTime.of(2022, 1,  12, 23, 23),
+            expenseAt = LocalDateTime.of(2022, 1,  12, 23, 23),
             person = person1
         )
 
@@ -57,14 +57,14 @@ class GroupController {
         val expense2 = GroupExpense(
             amount = 100.0,
             description = "Taxi",
-            expenseDate = LocalDateTime.of(2022, 10,  29, 10, 23),
+            expenseAt = LocalDateTime.of(2022, 10,  29, 10, 23),
             person = person2
         )
 
         val expense3 = GroupExpense(
             amount = 53.4,
             description = "Compra",
-            expenseDate = LocalDateTime.of(2022, 6,  23, 14, 56),
+            expenseAt = LocalDateTime.of(2022, 6,  23, 14, 56),
             person = person2
         )
 

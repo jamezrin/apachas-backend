@@ -7,5 +7,5 @@ import java.time.LocalDateTime
 data class CreateGroupExpenseRequestBody(
     val amount: Double,
     val description: String,
-    val expenseDate: LocalDateTime
+    val expenseAt: LocalDateTime
 )

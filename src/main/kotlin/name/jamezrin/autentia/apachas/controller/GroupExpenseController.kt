@@ -47,7 +47,7 @@ class GroupExpenseController {
         val expense = GroupExpense(
             description = createGroupExpenseRequestBody.description,
             amount = createGroupExpenseRequestBody.amount,
-            expenseDate = createGroupExpenseRequestBody.expenseDate,
+            expenseAt = createGroupExpenseRequestBody.expenseAt,
             person = member,
         )
 

@@ -29,7 +29,7 @@ class GroupExpense(
     @field:JsonDeserialize(using = LocalDateTimeDeserializer::class)
     @field:JsonSerialize(using = LocalDateTimeSerializer::class)
     @field:JsonFormat(shape = JsonFormat.Shape.STRING)
-    var expenseDate: LocalDateTime,
+    var expenseAt: LocalDateTime,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id", nullable = false)
