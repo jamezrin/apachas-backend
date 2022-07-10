@@ -2,37 +2,41 @@ package name.jamezrin.autentia.apachas.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import io.micronaut.core.annotation.Introspected
-import org.hibernate.annotations.CreationTimestamp
+import io.micronaut.data.annotation.DateCreated
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-@Table(name = "apachas_person")
+@Table(name = "apachas_expense")
 @Introspected
-class GroupMember(
+class Expense(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
     @Column
-    var name: String,
+    var amount: Double,
+
+    @Column
+    var description: String,
+
+    @Column
+    @field:JsonDeserialize(using = LocalDateTimeDeserializer::class)
+    @field:JsonSerialize(using = LocalDateTimeSerializer::class)
+    @field:JsonFormat(shape = JsonFormat.Shape.STRING)
+    var expenseAt: LocalDateTime,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", nullable = false)
+    @JoinColumn(name = "person_id", nullable = false)
     @field:JsonIgnore
-    var group: Group?,
+    var person: Member?,
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
-    @field:JsonInclude
-    var expenses: MutableList<GroupExpense> = mutableListOf(),
-
-    @CreationTimestamp
+    @DateCreated
     @field:JsonDeserialize(using = LocalDateTimeDeserializer::class)
     @field:JsonSerialize(using = LocalDateTimeSerializer::class)
     @field:JsonFormat(shape = JsonFormat.Shape.STRING)

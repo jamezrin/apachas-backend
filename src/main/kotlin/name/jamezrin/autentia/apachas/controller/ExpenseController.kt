@@ -4,30 +4,30 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
 import jakarta.inject.Inject
-import name.jamezrin.autentia.apachas.domain.GroupExpense
-import name.jamezrin.autentia.apachas.exceptions.types.GroupMemberNotFoundException
+import name.jamezrin.autentia.apachas.domain.Expense
+import name.jamezrin.autentia.apachas.exceptions.types.MemberNotFoundException
 import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
-import name.jamezrin.autentia.apachas.model.CreateGroupExpenseRequestBody
-import name.jamezrin.autentia.apachas.repository.GroupExpenseRepository
-import name.jamezrin.autentia.apachas.repository.GroupMemberRepository
+import name.jamezrin.autentia.apachas.model.CreateExpenseRequestBody
+import name.jamezrin.autentia.apachas.repository.ExpenseRepository
+import name.jamezrin.autentia.apachas.repository.MemberRepository
 import name.jamezrin.autentia.apachas.repository.GroupRepository
 import org.slf4j.LoggerFactory
 
 @Controller("/api/groups/{groupName}/members/{memberId}/expenses")
-class GroupExpenseController {
+class ExpenseController {
     @Inject
     lateinit var groupRepository: GroupRepository
 
     @Inject
-    lateinit var memberRepository: GroupMemberRepository
+    lateinit var memberRepository: MemberRepository
 
     @Inject
-    lateinit var expenseRepository: GroupExpenseRepository
+    lateinit var expenseRepository: ExpenseRepository
 
     @Get(uri = "/", produces = [MediaType.APPLICATION_JSON])
-    fun getGroupMemberExpenses(@PathVariable groupName: String, @PathVariable memberId: Long): List<GroupExpense> {
+    fun getGroupMemberExpenses(@PathVariable groupName: String, @PathVariable memberId: Long): List<Expense> {
         val member = memberRepository.findById(memberId)
-            ?: throw GroupMemberNotFoundException()
+            ?: throw MemberNotFoundException()
 
         if (groupName != member.group?.name)
             throw GroupNotFoundException()
@@ -37,17 +37,17 @@ class GroupExpenseController {
 
     @Post(uri = "/", produces = [MediaType.APPLICATION_JSON], consumes = [MediaType.APPLICATION_JSON])
     fun createGroupMemberExpense(@PathVariable groupName: String, @PathVariable memberId: Long,
-                           @Body createGroupExpenseRequestBody: CreateGroupExpenseRequestBody): HttpStatus {
+                           @Body createExpenseRequestBody: CreateExpenseRequestBody): HttpStatus {
         val member = memberRepository.findById(memberId)
-            ?: throw GroupMemberNotFoundException()
+            ?: throw MemberNotFoundException()
 
         if (groupName != member.group?.name)
             throw GroupNotFoundException()
 
-        val expense = GroupExpense(
-            description = createGroupExpenseRequestBody.description,
-            amount = createGroupExpenseRequestBody.amount,
-            expenseAt = createGroupExpenseRequestBody.expenseAt,
+        val expense = Expense(
+            description = createExpenseRequestBody.description,
+            amount = createExpenseRequestBody.amount,
+            expenseAt = createExpenseRequestBody.expenseAt,
             person = member,
         )
 
@@ -57,6 +57,6 @@ class GroupExpenseController {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(GroupExpenseController::class.java)
+        private val logger = LoggerFactory.getLogger(ExpenseController::class.java)
     }
 }

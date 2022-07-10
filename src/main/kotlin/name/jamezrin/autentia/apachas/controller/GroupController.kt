@@ -6,8 +6,8 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import jakarta.inject.Inject
 import name.jamezrin.autentia.apachas.domain.Group
-import name.jamezrin.autentia.apachas.domain.GroupExpense
-import name.jamezrin.autentia.apachas.domain.GroupMember
+import name.jamezrin.autentia.apachas.domain.Expense
+import name.jamezrin.autentia.apachas.domain.Member
 import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
 import name.jamezrin.autentia.apachas.repository.GroupRepository
 import name.jamezrin.autentia.apachas.service.GroupIdService
@@ -41,9 +41,9 @@ class GroupController {
         val groupName = groupIdService.generateNew()
         val group = Group(name = groupName)
 
-        val person1 = GroupMember(name = "Francisco Buyo", group = group)
+        val person1 = Member(name = "Francisco Buyo", group = group)
 
-        val expense1 = GroupExpense(
+        val expense1 = Expense(
             amount = 100.0,
             description = "Cena",
             expenseAt = LocalDateTime.of(2022, 1,  12, 23, 23),
@@ -52,16 +52,16 @@ class GroupController {
 
         person1.expenses.add(expense1)
 
-        val person2 = GroupMember(name = "Alfonso Pérez", group = group)
+        val person2 = Member(name = "Alfonso Pérez", group = group)
 
-        val expense2 = GroupExpense(
-            amount = 100.0,
+        val expense2 = Expense(
+            amount = 10.0,
             description = "Taxi",
             expenseAt = LocalDateTime.of(2022, 10,  29, 10, 23),
             person = person2
         )
 
-        val expense3 = GroupExpense(
+        val expense3 = Expense(
             amount = 53.4,
             description = "Compra",
             expenseAt = LocalDateTime.of(2022, 6,  23, 14, 56),
@@ -71,8 +71,8 @@ class GroupController {
         person2.expenses.add(expense2)
         person2.expenses.add(expense3)
 
-        val person3 = GroupMember(name = "Raúl González", group = group)
-        val person4 = GroupMember(name = "José María Gutiérrez", group = group)
+        val person3 = Member(name = "Raúl González", group = group)
+        val person4 = Member(name = "José María Gutiérrez", group = group)
 
         group.friends.add(person1)
         group.friends.add(person2)

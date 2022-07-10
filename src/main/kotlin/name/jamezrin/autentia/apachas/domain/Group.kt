@@ -26,7 +26,7 @@ class Group(
 
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     @field:JsonInclude
-    var friends: MutableList<GroupMember> = mutableListOf(),
+    var friends: MutableList<Member> = mutableListOf(),
 
     @CreationTimestamp
     @field:JsonDeserialize(using = LocalDateTimeDeserializer::class)

@@ -4,23 +4,23 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
 import jakarta.inject.Inject
-import name.jamezrin.autentia.apachas.domain.GroupMember
+import name.jamezrin.autentia.apachas.domain.Member
 import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
-import name.jamezrin.autentia.apachas.model.CreateGroupMemberRequestBody
-import name.jamezrin.autentia.apachas.repository.GroupMemberRepository
+import name.jamezrin.autentia.apachas.model.CreateMemberRequestBody
+import name.jamezrin.autentia.apachas.repository.MemberRepository
 import name.jamezrin.autentia.apachas.repository.GroupRepository
 import org.slf4j.LoggerFactory
 
 @Controller("/api/groups/{groupName}/members")
-class GroupMemberController {
+class MemberController {
     @Inject
     lateinit var groupRepository: GroupRepository
 
     @Inject
-    lateinit var memberRepository: GroupMemberRepository
+    lateinit var memberRepository: MemberRepository
 
     @Get(uri = "/", produces = [MediaType.APPLICATION_JSON])
-    fun getGroupMembers(@PathVariable groupName: String): List<GroupMember> {
+    fun getGroupMembers(@PathVariable groupName: String): List<Member> {
         val group = groupRepository.findByName(groupName)
             ?: throw GroupNotFoundException()
 
@@ -28,11 +28,11 @@ class GroupMemberController {
     }
 
     @Post(uri = "/", produces = [MediaType.APPLICATION_JSON], consumes = [MediaType.APPLICATION_JSON])
-    fun createGroupMember(@PathVariable groupName: String, @Body createGroupRequest: CreateGroupMemberRequestBody): HttpStatus {
+    fun createGroupMember(@PathVariable groupName: String, @Body createGroupRequest: CreateMemberRequestBody): HttpStatus {
         val group = groupRepository.findByName(groupName)
             ?: throw GroupNotFoundException()
 
-        val person = GroupMember(
+        val person = Member(
             name = createGroupRequest.name,
             group = group,
         )
@@ -43,6 +43,6 @@ class GroupMemberController {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(GroupMemberController::class.java)
+        private val logger = LoggerFactory.getLogger(MemberController::class.java)
     }
 }
