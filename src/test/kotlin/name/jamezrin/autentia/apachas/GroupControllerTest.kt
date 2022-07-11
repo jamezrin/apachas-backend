@@ -48,7 +48,7 @@ class GroupControllerTest {
             client.toBlocking().retrieve(request1, Group::class.java)
         }
 
-        assertEquals("Could not find the specified group", exception.message)
+        assertEquals("The specified group could not be found", exception.message)
         assertEquals(HttpStatus.NOT_FOUND, exception.status)
     }
 }

@@ -1,10 +1,13 @@
 package name.jamezrin.autentia.apachas.controller
 
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
 import jakarta.inject.Inject
 import name.jamezrin.autentia.apachas.domain.Expense
+import name.jamezrin.autentia.apachas.exceptions.InvalidEntityException
 import name.jamezrin.autentia.apachas.exceptions.types.MemberNotFoundException
 import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
 import name.jamezrin.autentia.apachas.model.CreateExpenseRequestBody
@@ -37,12 +40,16 @@ class ExpenseController {
 
     @Post(uri = "/", produces = [MediaType.APPLICATION_JSON], consumes = [MediaType.APPLICATION_JSON])
     fun createGroupMemberExpense(@PathVariable groupName: String, @PathVariable memberId: Long,
-                           @Body createExpenseRequestBody: CreateExpenseRequestBody): HttpStatus {
+                                 @Body createExpenseRequestBody: CreateExpenseRequestBody): HttpResponse<Expense> {
         val member = memberRepository.findById(memberId)
             ?: throw MemberNotFoundException()
 
         if (groupName != member.group?.name)
             throw GroupNotFoundException()
+
+        if (createExpenseRequestBody.description.isBlank() || createExpenseRequestBody.amount <= 0) {
+            throw InvalidEntityException()
+        }
 
         val expense = Expense(
             description = createExpenseRequestBody.description,
@@ -53,7 +60,7 @@ class ExpenseController {
 
         expenseRepository.insert(expense)
 
-        return HttpStatus.CREATED
+        return HttpResponse.created(expense)
     }
 
     companion object {

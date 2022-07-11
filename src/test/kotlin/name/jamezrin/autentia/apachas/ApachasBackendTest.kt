@@ -1,7 +1,7 @@
 package name.jamezrin.autentia.apachas
 import io.micronaut.runtime.EmbeddedApplication
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import jakarta.inject.Inject
 
@@ -13,7 +13,7 @@ class ApachasBackendTest {
 
     @Test
     fun testItWorks() {
-        Assertions.assertTrue(application.isRunning)
+        assertTrue(application.isRunning)
     }
 
 }

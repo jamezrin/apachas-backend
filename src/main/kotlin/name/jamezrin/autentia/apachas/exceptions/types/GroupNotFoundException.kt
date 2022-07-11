@@ -1,11 +1,9 @@
 package name.jamezrin.autentia.apachas.exceptions.types
 
-import io.micronaut.http.HttpStatus
-import name.jamezrin.autentia.apachas.exceptions.CustomApplicationException
 import name.jamezrin.autentia.apachas.exceptions.CustomApplicationReasonType
+import name.jamezrin.autentia.apachas.exceptions.NotFoundEntityException
 
-class GroupNotFoundException : CustomApplicationException(
-    "Could not find the specified group",
-    CustomApplicationReasonType.GROUP_NOT_FOUND,
-    HttpStatus.NOT_FOUND
+class GroupNotFoundException() : NotFoundEntityException(
+    "The specified group could not be found",
+    CustomApplicationReasonType.GROUP_NOT_FOUND
 )

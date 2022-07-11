@@ -10,6 +10,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import name.jamezrin.autentia.apachas.domain.Group
 import name.jamezrin.autentia.apachas.domain.Member
+import name.jamezrin.autentia.apachas.exceptions.types.GroupNotFoundException
 import name.jamezrin.autentia.apachas.model.CreateMemberRequestBody
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -49,7 +50,7 @@ class MemberControllerTest {
             client.toBlocking().exchange<CreateMemberRequestBody, Any>(request2)
         }
 
-        assertEquals("Could not find the specified group", exception.message)
+        assertEquals("The specified group could not be found", exception.message)
         assertEquals(HttpStatus.NOT_FOUND, exception.status)
     }
 
@@ -81,7 +82,25 @@ class MemberControllerTest {
             client.toBlocking().retrieve(request3)
         }
 
-        assertEquals("Could not find the specified group", exception.message)
+        assertEquals("The specified group could not be found", exception.message)
         assertEquals(HttpStatus.NOT_FOUND, exception.status)
+    }
+
+    @Test
+    fun newGroupAndAddMemberWithBlankNameFailure() {
+        val request1: HttpRequest<Unit> = HttpRequest.GET("/groups")
+        val response1 = client.toBlocking().retrieve(request1, Group::class.java)
+        assertNotNull(response1)
+        assertEquals(0, response1.friends.size)
+
+        val requestBody = CreateMemberRequestBody(name = "       ")
+        val request2: HttpRequest<CreateMemberRequestBody> = HttpRequest.POST("/groups/${response1.name}/members", requestBody)
+
+        val exception = assertThrows(HttpClientResponseException::class.java) {
+            client.toBlocking().retrieve(request2)
+        }
+
+        assertEquals("The entity could not pass validation", exception.message)
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, exception.status)
     }
 }

@@ -1,5 +1,6 @@
 package name.jamezrin.autentia.apachas.controller
 
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -23,11 +24,11 @@ class GroupController {
     lateinit var groupIdService: GroupIdService
 
     @Get(uri = "/", produces = [MediaType.APPLICATION_JSON])
-    fun getNewGroup(): Group {
+    fun getNewGroup(): HttpResponse<Group> {
         val groupName = groupIdService.generateNew()
         val group = Group(name = groupName, friends = mutableListOf())
         groupRepository.insert(group)
-        return group
+        return HttpResponse.created(group)
     }
 
     @Get(uri = "/{groupName}", produces = [MediaType.APPLICATION_JSON])
