@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Login to my Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
@@ -33,16 +33,18 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         run: ./gradlew build
-      - name: Build image
+      - name: Get app version
+        id: get_version
         run: |
           version=$(./gradlew properties --no-daemon --console=plain -q | grep "^version:" | awk '{printf $2}')
-          
-          image_name=${REGISTRY}/${IMAGE_PROJECT}/${IMAGE_NAME}
-          
-          docker buildx build --push \
-            --tag ${image_name}:${version} \ 
-            --platform ${IMAGE_ARCH} .
-          
-          docker tag ${image_name}:${version} ${image_name}:latest
-          
-          docker push ${image_name}:latest
+          echo "::set-output name=version::${version}"
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          platforms: ${{ env.IMAGE_ARCH }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PROJECT }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PROJECT }}/${{ env.IMAGE_NAME }}:latest
+
