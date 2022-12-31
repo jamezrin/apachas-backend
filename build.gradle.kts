@@ -7,7 +7,7 @@ plugins {
     id("io.micronaut.application") version "3.4.1"
 }
 
-version = "0.1"
+version = "1.0"
 group = "name.jamezrin.autentia.apachas"
 
 val kotlinVersion=project.properties.get("kotlinVersion")
