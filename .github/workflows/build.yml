@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 env:
-  REGISTRY: harbor.jamezrin.name
+  REGISTRY: harbor.jamezrin.com
   IMAGE_PROJECT: library
   IMAGE_NAME: apachas-backend
   IMAGE_ARCH: linux/amd64,linux/arm64
